@@ -13,6 +13,8 @@ class ose::master (
     exec { "processing $name":
       command => "ssh-copy-id -i ~/.ssh/id_rsa.pub $name",
       path => '/usr/bin/:/usr/sbin/',
+      tries => 10,
+      try_sleep => 60,
     }
   } 
   
