@@ -9,7 +9,7 @@ spawn ssh-copy-id -i /root/.ssh/id_rsa.pub $argv
 
 expect { 
   "assword: " { 
-    send "$pw\n" 
+    send "PASSWORD\n" 
     expect { 
       "again." { exit 1 } 
       "expecting." { } 
@@ -20,7 +20,7 @@ expect {
     send "yes\n" 
     expect { 
       "assword: " { 
-        send "PASSWORD!!\n" 
+        send "PASSWORD\n" 
         expect { 
           "again." { exit 1 } 
           "expecting." { } 
@@ -31,16 +31,3 @@ expect {
   } 
 } 
 exit 0 
-
-expect {
-    timeout { send_user "\nFailed to get password prompt\n"; exit 1 }
-    eof { send_user "\nSSH failure for $hostname\n"; exit 1 }
-
-    "*re you sure you want to continue connecting" {
-        send "yes\r"
-        exp_continue
-    }
-    "*assword*" {
-        send "PASSWORD!!\r"
-    }
-}

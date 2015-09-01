@@ -3,6 +3,9 @@ class ose (
   $dev = 'dev/sdb',
   $nodes, ) {
 
+  stage { 'last': }
+  Stage['main'] -> Stage['last']
+
   include ose::prerequisites
 
   if $role == "Master" {
