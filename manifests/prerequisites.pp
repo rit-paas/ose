@@ -7,7 +7,7 @@ class ose::prerequisites {
       --enable="rhel-7-server-optional-rpms" \
       --enable="rhel-7-server-ose-3.0-rpms"',
     path => '/usr/sbin/:/bin/',
-    notify => Package['docker'],
+    notify => Exec['yum-update'],
   }
 
   package { 'NetworkManager':
