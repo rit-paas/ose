@@ -44,7 +44,7 @@ class ose::prerequisites {
   }
 
   package { 'docker': 
-    require => Exec['subscription-manager'],
+    require => Exec['subscription-manager','docker-storage-setup'],
   }
 
   file { '/etc/sysconfig/docker' :
