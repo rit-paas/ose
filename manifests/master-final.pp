@@ -4,6 +4,7 @@ class ose::master-final {
     command => "ansible-playbook /root/openshift-ansible/playbooks/byo/config.yml && touch /ansible-successful",
     path => '/usr/bin/',
     creates => "/ansible-successful",
+    timeout => 0,
   }
 
 }
