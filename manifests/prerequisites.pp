@@ -1,12 +1,13 @@
 class ose::prerequisites {
 
-  exec { 'subscrption-manager':
+  exec { 'subscription-manager':
     command => 'subscription-manager repos --disable="*" && subscription-manager repos \
       --enable="rhel-7-server-rpms" \
       --enable="rhel-7-server-extras-rpms" \
       --enable="rhel-7-server-optional-rpms" \
       --enable="rhel-7-server-ose-3.0-rpms"',
     path => '/usr/sbin/:/bin/',
+    notify => Package['docker'],
   }
 
   package { 'NetworkManager':
@@ -14,20 +15,37 @@ class ose::prerequisites {
     provider => 'yum',
   }
 
-  package { 'bash-completion': }
-  package { 'wget': }
-  package { 'git': }
-  package { 'net-tools': }
-  package { 'bind-utils': }
-  package { 'iptables-services': }
-  package { 'bridge-utils': }
+  package { 'bash-completion': 
+    require => Exec['subscription-manager'],
+  }
+  package { 'wget': 
+    require => Exec['subscription-manager'],
+  }
+  package { 'git': 
+    require => Exec['subscription-manager'],
+  }
+  package { 'net-tools': 
+    require => Exec['subscription-manager'],
+  }
+  package { 'bind-utils': 
+    require => Exec['subscription-manager'],
+  }
+  package { 'iptables-services': 
+    require => Exec['subscription-manager'],
+  }
+  package { 'bridge-utils': 
+    require => Exec['subscription-manager'],
+  }
 
   exec { 'yum-update':
     command => 'yum update -y',
     path => '/usr/local/bin/:/bin/',
+    require => Exec['subscription-manager'],
   }
 
-  package { 'docker': }
+  package { 'docker': 
+    require => Exec['subscription-manager'],
+  }
 
   file { '/etc/sysconfig/docker' :
     ensure => present,
@@ -50,5 +68,6 @@ class ose::prerequisites {
 
   service { 'docker':
     ensure => running,
+    require => Package['docker'],
   }
 }
