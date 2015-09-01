@@ -44,7 +44,7 @@ class ose::prerequisites {
   }
 
   package { 'docker': 
-    require => Exec['subscription-manager','docker-storage-setup'],
+    require => Exec['subscription-manager'], 
   }
 
   file { '/etc/sysconfig/docker' :
@@ -68,6 +68,6 @@ class ose::prerequisites {
 
   service { 'docker':
     ensure => running,
-    require => Package['docker'],
+    require => Exec['docker-storage-setup'],
   }
 }
