@@ -46,7 +46,8 @@ class ose::master (
   exec { 'git-ansible-hosts':
     command => "wget -O /etc/ansible/hosts http://mgmxasgitp01.infra.rit-paas.com/ritsystemuser/ansible-hosts/raw/master/etc/ansible/hosts",
     path => '/usr/bin/',
-    require => Package['git'],
+    require => [Package['git'], Exec['ansible'], ],
+    creates => '/etc/ansible/hosts'
   }
 
   class { ose::master-final:
