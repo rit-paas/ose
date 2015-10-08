@@ -9,7 +9,7 @@ spawn ssh-copy-id -i /root/.ssh/id_rsa.pub $argv
 
 expect { 
   "assword: " { 
-    send "Install01\n" 
+    send "<%= @root_pw %>\n" 
     expect { 
       "again." { exit 1 } 
       "expecting." { } 
@@ -20,7 +20,7 @@ expect {
     send "yes\n" 
     expect { 
       "assword: " { 
-        send "Install01\n" 
+        send "<%= @root_pw %>\n" 
         expect { 
           "again." { exit 1 } 
           "expecting." { } 

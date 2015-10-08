@@ -1,6 +1,10 @@
 class ose (
   $role,
   $dev = 'dev/sdb',
+  $public_cluster_name,
+  $default_subdomain,
+  $default_node_selector,
+  $masters,
   $nodes, ) {
 
   stage { 'last': }
@@ -16,6 +20,12 @@ class ose (
   }
   elsif $role == "Node" {
     include ose::node
+  }
+  elsif $role == "Test" {
+    class { ose::test:
+      masters => $masters,
+      nodes => $nodes,
+    }
   }
   else {
     error('Role not defined!')

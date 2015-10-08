@@ -1,0 +1,41 @@
+# MANAGED BY PUPPET! DO NOT CHANGE!!
+
+[OSEv3:children]
+masters
+nodes
+
+# Set variables common for all OSEv3 hosts
+[OSEv3:vars]
+# SSH user, this user should allow ssh based auth without requiring a password
+ansible_ssh_user=root
+
+# If ansible_ssh_user is not root, ansible_sudo must be set to true
+#ansible_sudo=true
+
+product_type=openshift
+deployment_type=enterprise
+
+# uncomment the following to enable htpasswd authentication; defaults to DenyAllPasswordIdentityProvider
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/openshift/openshift-passwd'}]
+
+# Custom Cluster Variables
+openshift_master_cluster_public_hostname=<%= @public_cluster_name %>
+osm_default_subdomain=<%= @default_subdomain %>
+osm_default_node_selector=<%= @default_node_selector %>
+
+
+# host group for masters
+[masters]
+<% @masters.each do |master| -%>
+<%= master["name"] %>
+<% end -%>
+
+# host group for nodes, includes region info
+[nodes]
+<% @masters.each do |master| -%>
+<%= master["name"] %> openshift_node_labels="<%= master["labels"] %>" openshift_scheduleable=False
+<% end -%>
+
+<% @nodes.each do |node| -%>
+<%= node["name"] %> openshift_node_labels="<%= node["labels"] %>"
+<% end -%>

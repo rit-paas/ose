@@ -1,7 +1,7 @@
 #include 'master'
 
 class { 'ose':
-  role => 'Master',
+  role => 'Test',
   dev => '/dev/vdb',
   public_cluster_name => 'manage.dev.pcap.com',
   default_subdomain => 'dev.pcap.com',

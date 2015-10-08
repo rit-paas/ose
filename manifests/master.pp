@@ -3,10 +3,9 @@ class ose::master (
 
   package { 'expect': }
 
-  file { 'expect-script':
-    ensure => file,
-    source => 'puppet:///modules/ose/ssh-copy-expect.sh',
-    path => '/root/expect-script.sh',
+  file { '/root/expect-script.sh':
+    ensure => present,
+    content => template('ose/ssh-copy-expect.sh.erb'),
     mode => '0755',
   }
 
@@ -17,8 +16,8 @@ class ose::master (
   }
 
   define process_file {
-    exec { "processing $name":
-      command => "expect-script.sh $name",
+    exec { "ssh-copy-id to $name":
+      command => "expect-script.sh $name['name']",
       path => '/root/:/usr/bin/:/usr/sbin/',
       tries => 10,
       try_sleep => 60,
@@ -42,13 +41,17 @@ class ose::master (
     require => Package['git'],
   }
 
-  # Improvement: Parameters and template for this file
-  exec { 'git-ansible-hosts':
-    command => "wget -O /etc/ansible/hosts http://mgmxasgitp01.infra.rit-paas.com/ritsystemuser/ansible-hosts/raw/master/etc/ansible/hosts",
-    path => '/usr/bin/',
-    require => [Package['git'], Exec['ansible'], ],
-    creates => '/etc/ansible/hosts'
+  #exec { 'git-ansible-hosts':
+  #  command => "wget -O /etc/ansible/hosts http://mgmxasgitp01.infra.rit-paas.com/ritsystemuser/ansible-hosts/raw/master/etc/ansible/hosts",
+  #  path => '/usr/bin/',
+  #  require => [Package['git'], Exec['ansible'], ],
+  #  creates => '/etc/ansible/hosts'
+  #}
+  file { '/etc/ansible/hosts' :
+    ensure => present,
+    content => template('ose/hosts.erb'),
   }
+  
 
   class { ose::master-final:
     stage => 'last',
