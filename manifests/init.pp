@@ -14,6 +14,10 @@ class ose (
 
   if $role == "Master" {
     class { ose::master:
+      public_cluster_name => $public_cluster_name,
+      default_subdomain => $default_subdomain,
+      default_node_selector => $default_node_selector,
+      masters => $masters,
       nodes => $nodes,
     }
     #include ose::master
