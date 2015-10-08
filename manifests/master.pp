@@ -1,4 +1,8 @@
 class ose::master (
+  $public_cluster_name,
+  $default_subdomain,
+  $default_node_selector,
+  $masters,
   $nodes, ) {
 
   package { 'expect': }
