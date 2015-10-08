@@ -25,7 +25,7 @@ class ose::master (
       path => '/root/:/usr/bin/:/usr/sbin/',
       tries => 10,
       try_sleep => 60,
-      require => File['expect-script'],
+      require => File['/root/expect-script.sh'],
     }
   } 
   
