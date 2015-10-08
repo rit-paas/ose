@@ -7,11 +7,11 @@ class { 'ose':
   default_subdomain => 'dev.pcap.com',
   default_node_selector => 'region=primary',
   masters => [
-              {name => 'mgmxasmasterd01.infra.rit-paas.com', labels => "{'region': 'infra', 'zone': 'default'}"},
+              {hostname => 'mgmxasmasterd01.infra.rit-paas.com', labels => "{'region': 'infra', 'zone': 'default'}"},
              ],
   nodes => [
-            {'name' => 'mgmxasnoded01.infra.rit-paas.com', 'labels' => "{'region': 'primary', 'zone': 'east'}"},
-            {'name' => 'mgmxasnoded02.infra.rit-paas.com', 'labels' => "{'region': 'primary', 'zone': 'east'}"},
-            {'name' => 'mgmxasnoded03.infra.rit-paas.com', 'labels' => "{'region': 'primary', 'zone': 'west'}"},
+            {'hostname' => 'mgmxasnoded01.infra.rit-paas.com', 'labels' => "{'region': 'primary', 'zone': 'east'}"},
+            {'hostname' => 'mgmxasnoded02.infra.rit-paas.com', 'labels' => "{'region': 'primary', 'zone': 'east'}"},
+            {'hostname' => 'mgmxasnoded03.infra.rit-paas.com', 'labels' => "{'region': 'primary', 'zone': 'west'}"},
            ]
 }

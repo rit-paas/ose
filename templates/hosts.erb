@@ -27,15 +27,15 @@ osm_default_node_selector=<%= @default_node_selector %>
 # host group for masters
 [masters]
 <% @masters.each do |master| -%>
-<%= master["name"] %>
+<%= master["hostname"] %>
 <% end -%>
 
 # host group for nodes, includes region info
 [nodes]
 <% @masters.each do |master| -%>
-<%= master["name"] %> openshift_node_labels="<%= master["labels"] %>" openshift_scheduleable=False
+<%= master["hostname"] %> openshift_node_labels="<%= master["labels"] %>" openshift_scheduleable=False
 <% end -%>
 
 <% @nodes.each do |node| -%>
-<%= node["name"] %> openshift_node_labels="<%= node["labels"] %>"
+<%= node["hostname"] %> openshift_node_labels="<%= node["labels"] %>"
 <% end -%>
