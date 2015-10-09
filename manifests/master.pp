@@ -3,6 +3,7 @@ class ose::master (
   $default_subdomain,
   $default_node_selector,
   $ssh_key_to,
+  $root_pw,
   $masters,
   $nodes, ) {
 

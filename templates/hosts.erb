@@ -19,7 +19,9 @@ deployment_type=enterprise
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/openshift/openshift-passwd'}]
 
 # Custom Cluster Variables
-openshift_master_cluster_public_hostname=<%= @public_cluster_name %>
+#openshift_master_cluster_public_hostname=<%= @public_cluster_name %>
+openshift_master_public_api_url=<%= @public_cluster_name %>
+openshift_master_public_console_url=<%= @public_cluster_name %>/console/
 osm_default_subdomain=<%= @default_subdomain %>
 osm_default_node_selector=<%= @default_node_selector %>
 

@@ -5,6 +5,7 @@ class ose (
   $default_subdomain,
   $default_node_selector,
   $ssh_key_to,
+  $root_pw,
   $masters,
   $nodes, ) {
 
@@ -21,6 +22,7 @@ class ose (
       ssh_key_to => $ssh_key_to,
       masters => $masters,
       nodes => $nodes,
+      root_pw => $root_pw,
     }
     #include ose::master
   }
