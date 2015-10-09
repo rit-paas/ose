@@ -57,6 +57,7 @@ class ose::master (
   file { '/etc/ansible/hosts' :
     ensure => present,
     content => template('ose/hosts.erb'),
+    require => Exec['ansible'],
   }
   
 
