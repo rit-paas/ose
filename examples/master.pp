@@ -3,7 +3,7 @@
 class { 'ose':
   role => 'Master',
   dev => '/dev/vdb',
-  public_cluster_name => 'manage.dev.pcap.com',
+  public_cluster_name => 'https://manage.dev.pcap.com',
   default_subdomain => 'dev.pcap.com',
   default_node_selector => 'region=primary',
   masters => [
