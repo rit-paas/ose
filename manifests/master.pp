@@ -2,6 +2,7 @@ class ose::master (
   $public_cluster_name,
   $default_subdomain,
   $default_node_selector,
+  $ssh_key_to,
   $masters,
   $nodes, ) {
 
@@ -19,9 +20,9 @@ class ose::master (
     creates => '/root/.ssh/id_rsa',
   }
 
-  define process_file {
+  define ssh-copy {
     exec { "ssh-copy-id to $name":
-      command => "expect-script.sh $name['name']",
+      command => "expect-script.sh $name",
       path => '/root/:/usr/bin/:/usr/sbin/',
       tries => 10,
       try_sleep => 60,
@@ -29,7 +30,8 @@ class ose::master (
     }
   } 
   
-  process_file { $nodes: 
+
+  ssh-copy { $ssh_key_to: 
     require => Exec['ssh-keygen'],
   }
 

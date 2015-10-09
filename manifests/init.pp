@@ -4,6 +4,7 @@ class ose (
   $public_cluster_name,
   $default_subdomain,
   $default_node_selector,
+  $ssh_key_to,
   $masters,
   $nodes, ) {
 
@@ -17,6 +18,7 @@ class ose (
       public_cluster_name => $public_cluster_name,
       default_subdomain => $default_subdomain,
       default_node_selector => $default_node_selector,
+      ssh_key_to => $ssh_key_to,
       masters => $masters,
       nodes => $nodes,
     }
