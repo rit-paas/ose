@@ -1,6 +1,6 @@
 class ose (
   $role,
-  $dev = 'dev/sdb',
+  $dev = '/dev/vdb',
   $public_cluster_name,
   $default_subdomain,
   $default_node_selector,
