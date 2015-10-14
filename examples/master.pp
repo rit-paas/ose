@@ -3,8 +3,8 @@
 class { 'ose':
   role => 'Master',
   dev => '/dev/vdb',
-  public_cluster_name => 'https://manage.dev.pcap.com',
-  default_subdomain => 'dev.pcap.com',
+  public_cluster_name => 'manage.dev.pcap.at',
+  default_subdomain => 'dev.pcap.at',
   default_node_selector => 'region=primary',
   masters => [
               {hostname => 'mgmxasmasterd01.infra.rit-paas.com', labels => "{'region': 'infra', 'zone': 'default'}"},
