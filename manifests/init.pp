@@ -15,16 +15,7 @@ class ose (
   include ose::prerequisites
 
   if $role == "Master" {
-    class { ose::master:
-      public_cluster_name => $public_cluster_name,
-      default_subdomain => $default_subdomain,
-      default_node_selector => $default_node_selector,
-      ssh_key_to => $ssh_key_to,
-      masters => $masters,
-      nodes => $nodes,
-      root_pw => $root_pw,
-    }
-    #include ose::master
+    include ose::master
   }
   elsif $role == "Node" {
     include ose::node

@@ -1,11 +1,12 @@
-class ose::master (
-  $public_cluster_name,
-  $default_subdomain,
-  $default_node_selector,
-  $ssh_key_to,
-  $root_pw,
-  $masters,
-  $nodes, ) {
+class ose::master {
+
+  $public_cluster_name    = $::ose::public_cluster_name
+  $default_subdomain      = $::ose::default_subdomain
+  $default_node_selector  = $::ose::default_node_selector
+  $ssh_key_to             = $::ose::ssh_key_to
+  $root_pw                = $::ose::root_pw
+  $masters                = $::ose::masters
+  $nodes                  = $::ose::nodes
 
   package { 'expect': }
 
@@ -29,10 +30,10 @@ class ose::master (
       try_sleep => 60,
       require => File['/root/expect-script.sh'],
     }
-  } 
-  
+  }
 
-  ssh-copy { $ssh_key_to: 
+
+  ssh-copy { $ssh_key_to:
     require => Exec['ssh-keygen'],
   }
 
@@ -59,7 +60,7 @@ class ose::master (
     content => template('ose/hosts.erb'),
     require => Exec['ansible'],
   }
-  
+
 
   class { ose::master-final:
     stage => 'last',
