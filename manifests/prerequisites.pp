@@ -12,11 +12,6 @@ class ose::prerequisites {
     creates => '/sub.managed'
   }
 
-  package { 'NetworkManager':
-    ensure => purged,
-    provider => 'yum',
-  }
-
   package { 'bash-completion': 
     require => Exec['subscription-manager'],
   }
@@ -40,9 +35,10 @@ class ose::prerequisites {
   }
 
   exec { 'yum-update':
-    command => 'yum update -y',
+    command => 'yum update -y && yum erase -y NetworkManager && touch /yum.updated',
     path => '/usr/local/bin/:/bin/',
     require => Exec['subscription-manager'],
+    creates => '/yum.updated',
   }
 
   package { 'docker': 
