@@ -34,6 +34,12 @@ class ose::prerequisites {
     require => Exec['subscription-manager'],
   }
 
+  exec { 'selinux-nfs':
+    command => 'setsebool -P virt_use_nfs 1 && touch /selinux.nfs',
+    path => '/usr/sbin/',
+    creates => '/selinux.nfs',
+  }
+
   exec { 'yum-update':
     command => 'yum update -y && yum erase -y NetworkManager && touch /yum.updated',
     path => '/usr/local/bin/:/bin/',
