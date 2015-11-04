@@ -36,7 +36,7 @@ class ose::prerequisites {
 
   exec { 'selinux-nfs':
     command => 'setsebool -P virt_use_nfs 1 && touch /selinux.nfs',
-    path => '/usr/sbin/',
+    path => '/usr/sbin/:/usr/bin/',
     creates => '/selinux.nfs',
   }
 
