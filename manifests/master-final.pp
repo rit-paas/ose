@@ -37,7 +37,7 @@ class ose::master-final {
   } else {
 
     exec { 'ansible-playbook':
-      command => "ansible-playbook /root/openshift-ansibl-currente/playbooks/byo/config.yml && touch /ansible-successful",
+      command => "ansible-playbook /root/openshift-ansible-current/playbooks/byo/config.yml && touch /ansible-successful",
       path => '/usr/bin/',
       creates => "/ansible-successful",
       timeout => 0,
