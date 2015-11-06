@@ -43,18 +43,12 @@ class ose::master {
   }
 
   exec { 'git-clone':
-    command => "cd /root && git clone http://mgmxasgitp01.infra.rit-paas.com/ritsystemuser/openshift-ansible.git",
-    creates => "/root/openshift-ansible/playbooks/byo/config.yml",
+    command => "cd /root && git clone http://mgmxasgitp01.infra.rit-paas.com/ritsystemuser/openshift-ansible-current.git -b v3.0.2-2",
+    creates => "/root/openshift-ansible-current/playbooks/byo/config.yml",
     path => '/usr/bin/',
     require => Package['git'],
   }
 
-  #exec { 'git-ansible-hosts':
-  #  command => "wget -O /etc/ansible/hosts http://mgmxasgitp01.infra.rit-paas.com/ritsystemuser/ansible-hosts/raw/master/etc/ansible/hosts",
-  #  path => '/usr/bin/',
-  #  require => [Package['git'], Exec['ansible'], ],
-  #  creates => '/etc/ansible/hosts'
-  #}
   file { '/etc/ansible/hosts' :
     ensure => present,
     content => template('ose/hosts.erb'),
